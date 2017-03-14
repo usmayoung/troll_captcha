@@ -23,7 +23,7 @@
 8. Only words starting with a letter will be included in the exclusion list
 9. No duplicates in the exclusion list
 10. Punctuation and special characters are striped from both the front and end of words
-11. Special characters are allowed in the middle of a word (for example "real-time") but space will seperate the text
+11. Special characters are allowed in the middle of a word (for example "real-time") but space will separate the text
 
 ### 1. Receive a client HTTP request with counts
 1. Exclusion list can be in any order
