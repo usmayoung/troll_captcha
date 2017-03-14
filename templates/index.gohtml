@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>INDEX2</title>
+</head>
+<body>
+
+<p> <span style="font-weight: bold;">Please count the frequency of the words in: </span>"{{.Text}}" </p>
+{{if .Exclusions }}
+    <p>However, please ignore (do not count) the word(s) {{range .Exclusions}} "<span style="font-weight: bold;">{{.}}</span>" {{end}} </p>
+    <p> To ignore a word please input a 0 or leave the input blank </p>
+{{end}}
+
+
+<form method="POST" action="troll_captchas/{{.Id}}">
+    <input type="hidden" name="text" value="{{.Text}}"><br>
+	{{ range $index, $elem := .Words }}
+         <input type="hidden" name="ClientWords.{{$index}}.Word" value="{{$elem}}">
+         {{$elem}}: <input type="text" name="ClientWords.{{$index}}.Count"><br>
+    {{end}}
+    <input type="submit">
+</form>
+
+</body>
+</html>
