@@ -10,6 +10,8 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"encoding/json"
+	"flag"
 )
 
 var tpl *template.Template
@@ -30,10 +32,23 @@ func init() {
 	//parse template views
 	tpl = template.Must(template.ParseGlob("./templates/*"))
 	//build TrollCaptcha from local text files
-	readTextFiles()
 }
 
+var numberCaptcha int
 func main() {
+	//processing flags from command line, if no flags use local files as captcha text,
+	//if captcha_numb is set, use that number to retrieve the correnct texts from api
+	//listed below
+	numbPtr := flag.Int("captcha_numb", 0, "integer flag for determining number of captcha to fetch")
+	flag.Parse()
+	numberCaptcha = *numbPtr
+
+	if numberCaptcha == 0 {
+		readTextFiles()
+	} else {
+		getChuckNorrisText()
+	}
+
 	//create router
 	r := mux.NewRouter()
 
@@ -55,7 +70,6 @@ func main() {
 func index(w http.ResponseWriter, req *http.Request) {
 	trollCaptcha := captchaIndex[rand.Intn(len(captchaIndex))]
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	fmt.Println(trollCaptcha.Words)
 	tpl.ExecuteTemplate(w, "index.gohtml", trollCaptcha)
 }
 
@@ -121,6 +135,48 @@ func readTextFiles() {
 
 	}
 
+	fmt.Println("Server has processed all local files")
+
+}
+
+//getChuckNorrisText gets the number of texts specified in -captcha_numb flag
+//all requests to api use goroutines and run in parallel to get jokes
+func getChuckNorrisText() {
+	n := numberCaptcha
+	c := make(chan models.Message)
+	done := make(chan bool)
+	captchaIndex = make([]*models.TrollCaptcha, n)
+
+	for i := 0; i < n; i++ {
+		go func () {
+			resp, _ :=http.Get("http://api.icndb.com/jokes/random/")
+			var m models.Message
+			if err := json.NewDecoder(resp.Body).Decode(&m); err != nil {
+				log.Println(err)
+			}
+
+			c <- m
+			done <- true
+		}()
+
+	}
+
+
+	go func() {
+		for i := 0; i < n; i++ {
+			<-done
+		}
+		close(c)
+	}()
+
+	count := 0;
+	for m := range c {
+		trollCap := models.NewTrollCaptcha(m.Value.Joke, m.Id)
+		captchaCache[trollCap.Id] = trollCap
+		captchaIndex[count] = trollCap
+		count++
+	}
+	fmt.Println("Server has processed all ", numberCaptcha, "Chuck Norris jokes")
 }
 
 //Helper method to check for errors, and responds with panic if error

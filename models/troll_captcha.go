@@ -35,6 +35,16 @@ type ClientWord struct {
 	Count int    //count indicating how many times the word appeared in word, 0 or " " indicates it is ignored
 }
 
+type Message struct {
+	Id int
+	Type string `json:"type"`
+	Value Value
+}
+
+type Value struct {
+	Joke string `json:"joke"`
+}
+
 //Constructor for TrollCaptcha, calls t.buildWordMap in order to trigger
 //the creation of TrollCaptcha fields
 func NewTrollCaptcha(text string, index int) *TrollCaptcha {
