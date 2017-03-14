@@ -6,7 +6,13 @@ Reload browser to see all random troll captchas
 
         # You can run server on Mac OSX by running main, (you will need to have go installed on your local environment)
         # Run/Start the server using go run which runs on localhost:8000/
+        # By default this will use local files to create captcha text
         go run main.go
+
+        # You can add the following flag -captcha_numb to determine the captcha text size
+        # If this flag is set and greater than 0, it will fetch for that many Chuck Norris
+        # jokes as the captcha text
+        go run main.go -captcha_numb=100
 
         # Run the test suite from the models directory
         go test
