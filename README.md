@@ -2,11 +2,11 @@
 
 ## Objective Complete
 
-# You can run server on Mac OSX by downloading and running main
-        # Run/Start the server using. Server runs on localhost:8000/
+        # You can run server on Mac OSX by downloading and running troll_captcha
+        # Run/Start the server using ./troll_captcha which runs on localhost:8000/
         ./troll_captcha
 
-        # Run the test suite from the models directory
+        # Run the test suite from the models directory (will need to have go installed on your local environment)
         go test
 
 ## Assumptions/Decisions made
