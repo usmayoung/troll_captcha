@@ -42,8 +42,8 @@ func main() {
 	r.HandleFunc("/troll_captchas/{id}", trollCaptcha)
 	r.Handle("/favicon.ico", http.NotFoundHandler())
 
-	//start server on port :8080
-	err := http.ListenAndServe(":8080", r)
+	//start server on port :8000
+	err := http.ListenAndServe(":8000", r)
 	if err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
@@ -59,7 +59,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "index.gohtml", trollCaptcha)
 }
 
-//trollCaptcha is the handler for the submission of a trollcaptcha
+ //trollCaptcha is the handler for the submission of a trollcaptcha
 //the url is parse "troll_captchas/:id, where the id is the unique identifier
 //for the trollcaptcha (calculated as the hash of the original text)
 func trollCaptcha(w http.ResponseWriter, req *http.Request) {
