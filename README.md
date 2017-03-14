@@ -2,6 +2,7 @@
 
 ## Objective Complete
 ### access troll captcha at http://ek2y.com
+Reload browser to see all random troll captchas
 
         # You can run server on Mac OSX by running main, (you will need to have go installed on your local environment)
         # Run/Start the server using go run which runs on localhost:8000/
