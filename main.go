@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
-	"github.com/usmayoung/animoto_interview/troll_captcha/models"
+	"./models"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -28,7 +28,7 @@ func init() {
 	//create the cache on the heap
 	captchaCache = make(map[string]*models.TrollCaptcha)
 	//parse template views
-	tpl = template.Must(template.ParseGlob("templates/*"))
+	tpl = template.Must(template.ParseGlob("./templates/*"))
 	//build TrollCaptcha from local text files
 	readTextFiles()
 }
