@@ -1,7 +1,7 @@
 # troll_captcha
 
 ## Objective Complete
-### access troll captcha at http://ek2y.com
+access troll captcha at http://ek2y.com
 Reload browser to see all random troll captchas
 
         # You can run server on Mac OSX by running main, (you will need to have go installed on your local environment)
@@ -21,16 +21,15 @@ Reload browser to see all random troll captchas
 
 ### 1. Respond to a orginal client HTTP request
 
-1. Assuming body of text is sufficient, as of right now the text files included are the sample size for the random captcha for a troll.
-2. The exclusion list sent back as response should only include words within the original text
-4. Troll Captchas with only one unique word should have an empty exclusion list
-5. Exclusion lists can't be as large as the texts in the captcha, at max one less than total words.  This prevents the troll from submitting all ignored fields; therefore, not requiring any counting, just submitting blank forms.
-6. Captchas with more than one word will have exclusion list form 1 to 5 at random
-7. Each element within exclusion list is random, but only random when created and cached (not per request), meaning each Captcha will have the same exlusion list until server restarted.  Depending on future, client demands, this might change so that each request triggers a random exclusion list.  Made this original decision based on performance and security concerns.  The assumption may be that if a troll cracks a Captcha, he will not share with his friends.
-8. Only words starting with a letter will be included in the exclusion list
-9. No duplicates in the exclusion list
-10. Punctuation and special characters are striped from both the front and end of words
-11. Special characters are allowed in the middle of a word (for example "real-time") but space will separate the text
+1. The exclusion list sent back as response should only include words within the original text
+2. Troll Captchas with only one unique word should have an empty exclusion list
+3. Exclusion lists can't be as large as the texts in the captcha, at max one less than total words.  This prevents the troll from submitting all ignored fields; therefore, not requiring any counting, just submitting blank forms.
+4. Captchas with more than one word will have exclusion list form 1 to 5 at random
+5. Each element within exclusion list is random, but only random when created and cached (not per request), meaning each Captcha will have the same exlusion list until server restarted.  Depending on future, client demands, this might change so that each request triggers a random exclusion list.  Made this original decision based on performance and security concerns.  The assumption may be that if a troll cracks a Captcha, he will not share with his friends.
+6. Only words starting with a letter will be included in the exclusion list
+7. No duplicates in the exclusion list
+8. Punctuation and special characters are striped from both the front and end of words
+9. Special characters are allowed in the middle of a word (for example "real-time") but space will separate the text
 
 ### 1. Receive a client HTTP request with counts
 1. Exclusion list can be in any order
