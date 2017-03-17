@@ -18,8 +18,8 @@ Reload browser to see all random troll captchas
 
         # OR if you don't have go installed you can just run the binary by running the included
         #main executable, the version included on github is compiled for Linux distros
-        #You will also need to run this exectutable from the same directory as the text and 
-        #template directories
+        #You will also need to run this exectutable from the same directory as the texts and 
+        #templates directories
         
         ./main
 
